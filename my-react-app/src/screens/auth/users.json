@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "email": "admin@admin.com",
+    "password": "adminadmin",
+    "name": "Malak Farman Khan",
+    "image": "profile-1.jpeg",
+    "is_staff": true
+  },
+  {
+    "id": 2,
+    "email": "asifkhan@admin.com",
+    "password": "adminadmin",
+    "name": "Asif Khan",
+    "image": "profile-2.jpeg",
+    "is_staff": false
+  },
+  {
+    "id": 3,
+    "email": "ayesha@admin.com",
+    "password": "adminadmin",
+    "name": "Malak Ayesha",
+    "image": "profile-3.jpeg",
+    "is_staff": false
+  },
+  {
+    "id": 4,
+    "email": "aisam@admin.com",
+    "password": "adminadmin",
+    "image": "profile-4.jpg",
+    "name": "Aisam Khan",
+    "is_staff": false
+  },
+  {
+    "id": 5,
+    "email": "osama@admin.com",
+    "password": "adminadmin",
+    "name": "Price Osama",
+    "image": "profile-5.jpg",
+    "is_staff": false
+  }
+]

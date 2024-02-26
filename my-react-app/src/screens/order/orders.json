@@ -1,0 +1,121 @@
+[
+  {
+    "id": "0c119e7a-b9bf-4f69-8fcf-545e8b647cd6",
+    "product": [
+      {
+        "id": 1,
+        "title": "Product 1",
+        "imageUrl": "cup.jpg",
+        "price": 19.99,
+        "description": "Description for Product 1"
+      },
+      {
+        "id": 2,
+        "title": "Product 2",
+        "imageUrl": "shirt2.jpg",
+        "price": 29.99,
+        "description": "Description for Product 2"
+      },
+      {
+        "id": 3,
+        "title": "Product 3",
+        "imageUrl": "shirt1.jpg",
+        "price": 19.99,
+        "description": "Description for Product 1"
+      },
+      {
+        "id": 4,
+        "title": "Product 4",
+        "imageUrl": "shirt1.jpg",
+        "price": 29.99,
+        "description": "Description for Product 2"
+      },
+      {
+        "id": 5,
+        "title": "Product 5",
+        "imageUrl": "cup3.jpg",
+        "price": 19.99,
+        "description": "Description for Product 1"
+      }
+    ],
+    "total": 2735,
+    "user":{
+      "id": 2,
+      "email": "asifkhan@admin.com",
+      "password": "adminadmin",
+      "name": "Asif Khan",
+      "image": "profile-2.jpeg",
+      "is_staff": false
+    }
+  },
+  {
+    "id": "0c119e7a-b9bf-4f69-8fcf-545e8b647cd66",
+    "product": [
+      {
+        "id": 1,
+        "title": "Product 1",
+        "imageUrl": "cup.jpg",
+        "price": 19.99,
+        "description": "Description for Product 1"
+      },
+      {
+        "id": 2,
+        "title": "Product 2",
+        "imageUrl": "shirt2.jpg",
+        "price": 29.99,
+        "description": "Description for Product 2"
+      },
+      {
+        "id": 3,
+        "title": "Product 3",
+        "imageUrl": "shirt1.jpg",
+        "price": 19.99,
+        "description": "Description for Product 1"
+      }
+    ],
+    "total": 5679,
+    "user":{
+      "id": 2,
+      "email": "asifkhan@admin.com",
+      "password": "adminadmin",
+      "name": "Asif Khan",
+      "image": "profile-2.jpeg",
+      "is_staff": false
+    }
+  },
+  {
+    "id": "2d109c24-cb91-4e22-a17e-f6ef735a7811",
+    "product": [
+      {
+        "id": 1,
+        "title": "Product 1",
+        "imageUrl": "cup.jpg",
+        "price": 19.99,
+        "description": "Description for Product 1"
+      },
+      {
+        "id": 2,
+        "title": "Product 2",
+        "imageUrl": "shirt2.jpg",
+        "price": 29.99,
+        "description": "Description for Product 2"
+      },
+      {
+        "id": 3,
+        "title": "Product 3",
+        "imageUrl": "shirt1.jpg",
+        "price": 19.99,
+        "description": "Description for Product 1"
+      }
+    ],
+    "total": 235,
+    "user":{
+      "id": 5,
+      "email": "osama@admin.com",
+      "password": "adminadmin",
+      "name": "Price Osama",
+      "image": "profile-5.jpg",
+      "is_staff": false
+    }
+  }
+]

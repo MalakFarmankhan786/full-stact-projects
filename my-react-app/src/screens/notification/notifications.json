@@ -1,0 +1,27 @@
+[
+    {
+      "id": 1,
+      "icon": "fe-mail",
+      "color": "bg-primary",
+      "label": "New Application received",
+      "subtext": "3 days ago",
+      "link": "notify-list.html"
+    },
+    {
+      "id": 2,
+      "icon": "fe-message-square",
+      "color": "bg-success",
+      "label": "You have a new message",
+      "subtext": "2 days ago",
+      "link": "notify-list.html"
+    },
+    {
+      "id": 3,
+      "icon": "fe-calendar",
+      "color": "bg-warning",
+      "label": "Upcoming event reminder",
+      "subtext": "1 day ago",
+      "link": "notify-list.html"
+    }
+  ]
+  

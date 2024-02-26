@@ -1,0 +1,87 @@
+[
+  {
+    "id": 1,
+    "title": "Product 1",
+    "imageUrl": "cup.jpg",
+    "price": 19.99,
+    "description": "Description for Product 1"
+  },
+  {
+    "id": 2,
+    "title": "Product 2",
+    "imageUrl": "shirt2.jpg",
+    "price": 29.99,
+    "description": "Description for Product 2"
+  },
+  {
+    "id": 3,
+    "title": "Product 3",
+    "imageUrl": "shirt1.jpg",
+    "price": 19.99,
+    "description": "Description for Product 1"
+  },
+  {
+    "id": 4,
+    "title": "Product 4",
+    "imageUrl": "shirt1.jpg",
+    "price": 29.99,
+    "description": "Description for Product 2"
+  },
+  {
+    "id": 5,
+    "title": "Product 5",
+    "imageUrl": "cup3.jpg",
+    "price": 19.99,
+    "description": "Description for Product 1"
+  },
+  {
+    "id": 6,
+    "title": "Product 6",
+    "imageUrl": "shirt2.jpg",
+    "price": 29.99,
+    "description": "Description for Product 2"
+  },
+  {
+    "id": 7,
+    "title": "Product 7",
+    "imageUrl": "cup.jpg",
+    "price": 19.99,
+    "description": "Description for Product 1"
+  },
+  {
+    "id": 8,
+    "title": "Product 8",
+    "imageUrl": "shirt2.jpg",
+    "price": 29.99,
+    "description": "Description for Product 2"
+  },
+  {
+    "id": 9,
+    "title": "Product 9",
+    "imageUrl": "shirt1.jpg",
+    "price": 19.99,
+    "description": "Description for Product 1"
+  },
+  {
+    "id": 10,
+    "title": "Product 10",
+    "imageUrl": "shirt1.jpg",
+    "price": 29.99,
+    "description": "Description for Product 2"
+  },
+  {
+    "id": 11,
+    "title": "Product 11",
+    "imageUrl": "cup3.jpg",
+    "price": 19.99,
+    "description": "Description for Product 1"
+  },
+  {
+    "id": 12,
+    "title": "Product 12",
+    "imageUrl": "shirt2.jpg",
+    "price": 29.99,
+    "description": "Description for Product 2"
+  }
+]
+

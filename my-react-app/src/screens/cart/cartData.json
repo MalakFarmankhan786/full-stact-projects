@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "qty": 2,
+    "product": {
+      "id": 1,
+      "title": "Product 1",
+      "imageUrl": "cup.jpg",
+      "price": 19.99,
+      "description": "Description for Product 1"
+    },
+    "price": 200,
+    "user": {
+      "id": 2,
+      "email": "asifkhan@admin.com",
+      "password": "adminadmin",
+      "name": "Asif Khan",
+      "image": "profile-2.jpeg",
+      "is_staff": false
+    }
+  },
+  {
+    "id": 2,
+    "qty": 1,
+    "product": {
+      "id": 2,
+      "title": "Product 2",
+      "imageUrl": "shirt2.jpg",
+      "price": 29.99,
+      "description": "Description for Product 2"
+    },
+    "price": 100,
+    "user": {
+      "id": 2,
+      "email": "asifkhan@admin.com",
+      "password": "adminadmin",
+      "name": "Asif Khan",
+      "image": "profile-2.jpeg",
+      "is_staff": false
+    }
+  },
+  {
+    "id": 3,
+    "qty": 4,
+    "product": {
+      "id": 3,
+      "title": "Product 3",
+      "imageUrl": "cup2.jpg",
+      "price": 19.99,
+      "description": "Description for Product 3"
+    },
+    "price": 800,
+    "user": {
+      "id": 5,
+      "email": "osama@admin.com",
+      "password": "adminadmin",
+      "name": "Price Osama",
+      "image": "profile-5.jpg",
+      "is_staff": false
+    }
+  },
+  {
+    "id": 4,
+    "qty": 8,
+    "product": {
+      "id": 4,
+      "title": "Product 4",
+      "imageUrl": "shirt2.jpg",
+      "price": 29.99,
+      "description": "Description for Product 4"
+    },
+    "price": 1600,
+    "user": {
+      "id": 5,
+      "email": "osama@admin.com",
+      "password": "adminadmin",
+      "name": "Price Osama",
+      "image": "profile-5.jpg",
+      "is_staff": false
+    }
+  }
+]
