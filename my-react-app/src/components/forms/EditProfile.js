@@ -12,6 +12,22 @@ const EditProfile = (props) => {
       </div>
       <div className="row mb-4">
         <input
+          {...props?.register("first_name")}
+          type="text"
+          className={`form-control`}
+          placeholder="Enter First Name"
+        />
+      </div>
+      <div className="row mb-4">
+        <input
+          {...props?.register("last_name")}
+          type="text"
+          className={`form-control `}
+          placeholder="Enter Last Name"
+        />
+      </div>
+      <div className="row mb-4">
+        <input
           {...props?.register("email", {
             required: {
               value: true,
@@ -29,14 +45,14 @@ const EditProfile = (props) => {
         />
       </div>
 
-      <div className="row mb-4">
+      {/* <div className="row mb-4">
         <input
           {...props?.register("name")}
           type="text"
           className={`form-control`}
           placeholder="Enter Your New Name"
         />
-      </div>
+      </div> */}
       <div className="row mb-4">
         <input
           {...props?.register("password", {

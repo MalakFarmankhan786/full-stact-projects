@@ -36,22 +36,27 @@ const Login = (props) => {
       });
       if (response.status === 200 || response.status === 201) {
         const data = await response.json();
+        console.log("Success data:", typeof data.access_token);
+
+        
         setTimeout(() => {
           setIsLoading(false);
-          localStorage.setItem("authToken", JSON.stringify(data.access_token));
-          navigate("/")
+          localStorage.setItem("authToken", data.access_token);
+          navigate("/edit-profile");
           reset();
         }, 1000);
       } else {
         const data = await response.json();
+        console.log("Error data:", data);
         setTimeout(() => {
           setMessage(data.detail);
           setIsLoading(false);
         }, 1000);
       }
     } catch (error) {
+      console.error("Error:", error);
       setTimeout(() => {
-        setMessage(error);
+        setMessage(error.toString());
         setIsLoading(false);
       }, 1000);
     }

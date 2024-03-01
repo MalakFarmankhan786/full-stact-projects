@@ -31,8 +31,11 @@ const ForgotPassword = (props) => {
       )}
 
       <div className="grid">
-        <button type="submit" className="btn w-25 fw-bold">
-          Verify
+        <button
+          type={props?.isLoading ? "button" : "submit"}
+          className="btn w-25 fw-bold"
+        >
+          {props?.isLoading ? "Loading..." : "Verify"}
         </button>
       </div>
     </form>

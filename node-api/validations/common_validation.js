@@ -58,15 +58,6 @@ const requiredLength = (fieldName) => {
 
 const emailValidate = (fieldName) => {
   // If fieldName contains underscores, split it and capitalize only the first word's first character
-  const formattedFieldName = fieldName.includes("_")
-    ? fieldName
-        .split("_")
-        .map((word, index) =>
-          index === 0 ? capitalizeFirstLetter(word) : word
-        )
-        .join(" ")
-    : capitalizeFirstLetter(fieldName);
-
   return [
     body(fieldName).trim().isEmail().withMessage({
       message: `Email should be valid!`,

@@ -1,15 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AppLayout from "../../components/applayout/AppLayout";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { jwtDecode } from "jwt-decode";
 import EditProfileForm from "../../components/forms/EditProfile";
+import { connect } from "react-redux";
 
-const EditProfile = () => {
+const EditProfile = (props) => {
   const navigate = useNavigate();
-  const storedAuthToken = localStorage.getItem("authToken");
-  const isLogged = storedAuthToken ? JSON.parse(storedAuthToken) : null;
-  // const logggedUser = isLogged && jwtDecode(token);
+  const isLogged = localStorage.getItem("authToken") ?? null;
+  const [userProfile, setUserProfile] = useState({});
+
   const {
     register,
     handleSubmit,
@@ -20,23 +21,36 @@ const EditProfile = () => {
 
   const hasError =
     errors?.email || errors?.password || errors?.confirm_password;
-  const postRequest = ({ email, name, image, password, confirm_password }) => {
-    if (!hasError && !isLogged) {
+  const postRequest = async ({
+    first_name,
+    last_name,
+    email,
+    password,
+    confirm_password,
+  }) => {
+    if (hasError || !isLogged) {
       return;
     }
-    console.log(email, name, image, password, confirm_password);
-    // Perform your logic for resetting the password
-    // For now, let's simulate success by redirecting to the home page
-    // navigate("/");
+    console.log(first_name, last_name, email, password, confirm_password);
+    try {
+      const response = await fetch("");
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    reset({
-      name: isLogged?.name,
-      email: isLogged?.email,
-      image: process.env.PUBLIC_URL + "/assets/images/profile.png",
-    });
-  }, []);
+    if (props?.userProfile != userProfile) {
+      setUserProfile(props?.userProfile);
+      reset({
+        first_name: userProfile?.first_name,
+        last_name: userProfile?.last_name,
+        email: userProfile?.email,
+        // image: process.env.PUBLIC_URL + "/assets/images/profile.png",
+      });
+    }
+  }, [props?.userProfile]);
 
   return (
     <AppLayout>
@@ -59,9 +73,7 @@ const EditProfile = () => {
                     borderRadius: "100%",
                     marginLeft: "-10px",
                   }}
-                  src={
-                    process.env.PUBLIC_URL + `/assets/images/${isLogged?.image}`
-                  }
+                  src={process.env.PUBLIC_URL + `/assets/images/profile-1.jpeg`}
                   // alt={product?.title}
                   alt={"No Image"}
                 />
@@ -92,5 +104,9 @@ const EditProfile = () => {
     </AppLayout>
   );
 };
-
-export default EditProfile;
+const mapStateToProps = (state) => {
+  return {
+    userProfile: state.userProfile.userProfileData,
+  };
+};
+export default connect(mapStateToProps)(EditProfile);

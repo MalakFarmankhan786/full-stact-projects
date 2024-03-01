@@ -5,6 +5,8 @@ const {
   emailValidate,
 } = require("../validations/common_validation");
 
+const isAuth = require("../middleware/is-auth");
+
 const authController = require("../controllers/auth");
 
 const router = express.Router();
@@ -29,9 +31,33 @@ router.post(
     ...emailValidate("email"),
 
     ...requiredField("password"),
-    ...requiredLength("password")
+    ...requiredLength("password"),
   ],
   authController.signInUser
 );
+
+router.post(
+  "/forgot-password",
+  [...requiredField("email"), ...emailValidate("email")],
+  authController.forgotPassword
+);
+
+router.post("/check-token", authController.checkToken);
+
+router.post(
+  "/reset-password",
+  [
+    ...requiredField("password"),
+    ...requiredField("confirm_password"),
+
+    ...requiredLength("password"),
+    ...requiredLength("confirm_password"),
+  ],
+  authController.resetPassword
+);
+
+router.get("/user-profile", isAuth, authController.getUserProfile);
+
+router.put("/edit-profile", isAuth, authController.editUserProfile);
 
 module.exports = router;

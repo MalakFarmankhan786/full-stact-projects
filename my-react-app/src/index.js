@@ -13,13 +13,15 @@ import "react-toastify/dist/ReactToastify.css";
 import App from "./App";
 
 // Import reducers
+import userProfile from "./store/reducers/userProfile";
 import product from "./store/reducers/product";
+
 
 // Import Web Vitals
 import reportWebVitals from "./reportWebVitals";
 
 // Combine reducers
-const rootReducers = combineReducers({ product });
+const rootReducers = combineReducers({ userProfile , product });
 
 // Redux DevTools Extension setup
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

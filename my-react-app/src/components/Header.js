@@ -14,6 +14,9 @@ const Header = () => {
 
   path = path.split("/")[1] ? path.split("/")[1] : "/";
   const navigate = useNavigate();
+
+
+  
   const removeToken = () => {
     localStorage.removeItem("authToken");
     setIsLogged(null);

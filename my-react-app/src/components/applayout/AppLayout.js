@@ -3,8 +3,6 @@ import GetRequests from "../../GetRequests";
 import Footer from "../Footer";
 import Header from "../Header";
 const AppLayout = (props) => {
-  const storedAuthToken = localStorage.getItem("authToken");
-  const isLogged = storedAuthToken ? JSON.parse(storedAuthToken) : null;
 
   return (
     <>

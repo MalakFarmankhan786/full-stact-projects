@@ -1,5 +1,5 @@
-import React from 'react';
-import { Navigate, useRoutes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Navigate, useParams, useRoutes } from 'react-router-dom';
 import Dashboard from './screens/Dashboard';
 import AllProducts from './screens/products/AllProducts';
 import Products from './screens/products/Products';
@@ -19,6 +19,7 @@ import Profile from './screens/Profile';
 
 function App() {
   const isLogged = localStorage.getItem('authToken') ?? null;
+
   let routes = useRoutes([
     {
       path: '/',
@@ -77,7 +78,7 @@ function App() {
       element: <ResetPassword />,
     },
     {
-      path: '/reset-password/:userId',
+      path: '/reset-password/:token',
       element: <ResetPassword />,
     },
     {

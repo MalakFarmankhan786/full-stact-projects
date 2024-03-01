@@ -22,3 +22,5 @@ class Exception204(APIException):
 
 class Exception200(APIException):
     status_code = 200
+
+

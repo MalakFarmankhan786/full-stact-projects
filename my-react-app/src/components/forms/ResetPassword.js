@@ -34,13 +34,18 @@ const ResetPassword = (props) => {
             },
           })}
           type="password"
-          className={`form-control ${props?.errors?.confirm_password && "invalid"}`}
+          className={`form-control ${
+            props?.errors?.confirm_password && "invalid"
+          }`}
           placeholder="Confirm Password"
         />
       </div>
       <div className="grid">
-        <button type="submit" className="btn w-25 fw-bold">
-          Reset
+        <button
+          type={props?.isLoading ? "button" : "submit"}
+          className="btn w-25 fw-bold"
+        >
+          {props?.isLoading ? "Loading..." : "Reset"}
         </button>
       </div>
     </form>
