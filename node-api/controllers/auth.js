@@ -4,6 +4,8 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const { clearImage } = require("../helpers/clearImage");
+
 function generateToken(length) {
   return crypto.randomBytes(length).toString("hex");
 }
@@ -98,7 +100,7 @@ exports.signInUser = (req, res, next) => {
           is_staff: loadedUser.is_staff,
         },
         "malakfarmankhan786",
-        { expiresIn: "10m" }
+        { expiresIn: "1h" }
       );
       res.status(200).json({ access_token: token.toString() });
     })
@@ -239,11 +241,11 @@ exports.getUserProfile = (req, res, next) => {
       res.status(200).json({
         message: "Authenticate user!",
         user: {
-          full_name: user.first_name + " " + user.last_name,
+          full_name: user.full_name,
           first_name: user.first_name,
           last_name: user.last_name,
           email: user.email,
-          // image:user.image
+          image: user.image,
         },
       });
     })
@@ -256,6 +258,93 @@ exports.getUserProfile = (req, res, next) => {
 };
 
 exports.editUserProfile = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    errors.array().map((err) => {
+      const error = new Error(err.msg.message || "Server Error");
+      error.statusCode = err.msg.statusCode || 500;
+      throw error;
+    });
+  }
   const { first_name, last_name, email, password, confirm_password } = req.body;
-  res.status(200).json({ msg: "profile successfully updated", data: req.body });
+  const userId = req.userId;
+
+
+  let loadedUser;
+  let isPassword = false;
+
+  if (password || confirm_password) {
+    if (password.length < 5 || confirm_password.length < 5) {
+      const error = new Error(
+        "Password and confirm password must be at least 5 characters long!"
+      );
+      error.statusCode = 422;
+      throw error;
+    }
+
+    if (password.length > 12 || confirm_password.length > 12) {
+      const error = new Error(
+        "Password and confirm password must be less than 12 characters long!"
+      );
+      error.statusCode = 422;
+      throw error;
+    }
+    if (password !== confirm_password) {
+      const error = new Error("Password and confirm password do not match!");
+      error.statusCode = 422;
+      throw error;
+    }
+    isPassword = true;
+  }
+
+  // Check if the provided email already exists
+  User.findOne({ email: email })
+    .then((existingUser) => {
+      if (existingUser && existingUser._id.toString() !== userId.toString()) {
+        res
+          .status(409)
+          .json({ detail: `User with this ${email} is already exist!` });
+      }
+      return User.findById(userId);
+    })
+    .then((user) => {
+      if (!user) {
+        const error = new Error(`User with this ID ${userId} not found!`);
+        error.statusCode = 422;
+        throw error;
+      }
+      loadedUser = user;
+
+      if (isPassword) {
+        return bcrypt.hash(password, 12);
+      }
+
+      return Promise.resolve(null);
+    })
+    .then((hashPassword) => {
+      if (hashPassword !== null) {
+        loadedUser.password = hashPassword;
+      }
+
+      loadedUser.first_name = first_name;
+      loadedUser.last_name = last_name;
+      loadedUser.email = email;
+      if (req.file && req.file.path!==loadedUser.image) {
+          clearImage(loadedUser.image);
+
+        loadedUser.image = req.file.path;
+      }
+      return loadedUser.save();
+    })
+    .then((updateUser) => {
+      res
+        .status(200)
+        .json({ msg: "Profile successfully updated", user: updateUser._id });
+    })
+    .catch((error) => {
+      if (!error.statusCode) {
+        error.statusCode = 500;
+        next(error);
+      }
+    });
 };

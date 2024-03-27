@@ -8,6 +8,7 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   password: {
     type: String,
@@ -17,8 +18,17 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  image: {
+    type: String,
+    default: "default/default-image.png",
+  },
   resetToken: String,
   resetTokenExpiration: String,
+});
+
+// Define virtual property for full name
+userSchema.virtual("full_name").get(function() {
+  return this.first_name + " " + this.last_name;
 });
 
 module.exports = mongoose.model("User", userSchema);

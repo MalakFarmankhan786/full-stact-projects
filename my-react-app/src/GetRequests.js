@@ -1,17 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import * as actionCreators from "./store/actions/index";
+import { jwtDecode } from "jwt-decode";
 
 const AllGetRequest = (props) => {
   const token = localStorage.getItem("authToken") ?? null;
+  const decodedToken = token? jwtDecode(token) : null
+
+
+ 
   useEffect(() => {
+
+
     if (token) {
+
       // Dispatch the actions when the component mounts
-      props.getRequestToUserProfile(`http://localhost:8000/api/user-profile`,token);
+      props.getRequestToUserProfile(process.env.REACT_APP_API_URL+"/user-profile",token);
+      // props.getRequestToUserProfile(`http://localhost:8000/api/user-profile/${decodedToken?.user_id}`,token);
     }
 
+    
+
+
     // props.getRequestToProducts(`http://localhost:8000/api/products`);
-  }, [props]);
+  }, []);
 
   return null; // or some JSX if needed
 };

@@ -5,28 +5,15 @@ import AppLayout from "../components/applayout/AppLayout";
 import { connect } from "react-redux";
 
 const Profile = (props) => {
-  const [isLogged, setIsLogged] = useState(null);
-  const [decodedToken, setDecodedToken] = useState(null);
-
-  const [userProfile,setUserProfile] = useState({})
-  // const logggedUser = isLogged && jwtDecode(token);
-
+  const [userProfile, setUserProfile] = useState();
 
   useEffect(() => {
-    // Assuming you have the token stored in localStorage
-    const token = localStorage.getItem("authToken");
 
-    if (token) {
-      const decoded = jwtDecode(token);
-      setDecodedToken(decoded);
-      setIsLogged(token);
+    if (props?.userProfile != userProfile) {
+      setUserProfile(props?.userProfile);
     }
+  }, [props?.userProfile]);
 
-    if(props?.userProfile != userProfile){
-      setUserProfile(props?.userProfile)
-    }
-
-  }, [props,userProfile]);
 
   return (
     <AppLayout>
@@ -38,16 +25,14 @@ const Profile = (props) => {
             </header>
             <div className="card__image">
               <img
-                src={
-                  process.env.PUBLIC_URL + `/assets/images/${isLogged?.image}`
-                }
+                src={process.env.REACT_APP_BASE_URL + userProfile?.image}
                 alt={userProfile?.full_name}
               />
             </div>
             <div className="card__content">
               <h6 className="product__description">{userProfile?.email}</h6>
             </div>
-            <div className="card__actions" style={{marginTop:"-20px"}}>
+            <div className="card__actions" style={{ marginTop: "-20px" }}>
               <Link to={`/edit-profile`} className="btn btn-edit">
                 Edit Profile
               </Link>
@@ -59,10 +44,9 @@ const Profile = (props) => {
   );
 };
 
-
 const mapStateToProps = (state) => {
   return {
-    userProfile:state.userProfile.userProfileData
+    userProfile: state.userProfile.userProfileData,
   };
 };
 export default connect(mapStateToProps)(Profile);

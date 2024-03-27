@@ -1,34 +1,41 @@
 import React from "react";
 
-const EditProfile = (props) => {
+const EditProfile = ({
+  handleSubmit,
+  postRequest,
+  register,
+  errors,
+  getValues,
+  onFocusField,
+  isSpinning,
+  setImage,
+}) => {
   return (
-    <form onSubmit={props?.handleSubmit(props?.postRequest)}>
+    <form onSubmit={handleSubmit(postRequest)}>
       <div className="row mb-4">
-        <input
-          {...props?.register("image")}
-          type="file"
-          className={`form-control`}
-        />
+        <input {...register("image")} type="file" className={`form-control`} onChange={e=>setImage(e.target.files[0])}/>
       </div>
       <div className="row mb-4">
         <input
-          {...props?.register("first_name")}
+          {...register("first_name")}
           type="text"
           className={`form-control`}
           placeholder="Enter First Name"
+          onFocus={onFocusField}
         />
       </div>
       <div className="row mb-4">
         <input
-          {...props?.register("last_name")}
+          {...register("last_name")}
           type="text"
           className={`form-control `}
           placeholder="Enter Last Name"
+          onFocus={onFocusField}
         />
       </div>
       <div className="row mb-4">
         <input
-          {...props?.register("email", {
+          {...register("email", {
             required: {
               value: true,
               message: "Email field is required!",
@@ -40,14 +47,15 @@ const EditProfile = (props) => {
             },
           })}
           type="email"
-          className={`form-control ${props?.errors?.email && "invalid"}`}
+          className={`form-control ${errors?.email && "invalid"}`}
           placeholder="Enter Your New Email"
+          onFocus={onFocusField}
         />
       </div>
 
       {/* <div className="row mb-4">
         <input
-          {...props?.register("name")}
+          {...register("name")}
           type="text"
           className={`form-control`}
           placeholder="Enter Your New Name"
@@ -55,26 +63,27 @@ const EditProfile = (props) => {
       </div> */}
       <div className="row mb-4">
         <input
-          {...props?.register("password", {
+          {...register("password", {
             minLength: {
               value: 5,
               message: "Password should be 5 characters long!",
             },
           })}
           type="password"
-          className={`form-control ${props?.errors?.password && "invalid"}`}
+          className={`form-control ${errors?.password && "invalid"}`}
           placeholder="Enter Your New Password"
+          onFocus={onFocusField}
         />
       </div>
       <div className="row mb-4">
         <input
-          {...props?.register("confirm_password", {
+          {...register("confirm_password", {
             minLength: {
               value: 5,
               message: "Password should be 5 characters long!",
             },
             validate: (value) => {
-              const { password } = props?.getValues();
+              const { password } = getValues();
               return (
                 password === value ||
                 "Password and Confirm password should match!"
@@ -82,15 +91,17 @@ const EditProfile = (props) => {
             },
           })}
           type="password"
-          className={`form-control ${
-            props?.errors?.confirm_password && "invalid"
-          }`}
+          className={`form-control ${errors?.confirm_password && "invalid"}`}
           placeholder="Confirm Password (agian)"
+          onFocus={onFocusField}
         />
       </div>
       <div className="grid">
-        <button type="submit" className="btn w-25 fw-bold">
-          Edit
+        <button
+          type={!isSpinning ? `submit` : "button"}
+          className="btn w-25 fw-bold"
+        >
+          {!isSpinning ? `Edit` : "Loading..."}
         </button>
       </div>
     </form>

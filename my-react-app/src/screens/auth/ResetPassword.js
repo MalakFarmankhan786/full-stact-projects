@@ -26,7 +26,7 @@ const ResetPassword = () => {
 
     // Perform your logic for resetting the password
     try {
-      const response = await fetch("http://localhost:8000/api/reset-password", {
+      const response = await fetch(process.env.REACT_APP_API_URL+"/reset-password", {
         method: "POST",
         body: JSON.stringify({
           password,

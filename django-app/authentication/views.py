@@ -1,15 +1,15 @@
 from django.contrib.auth.hashers import make_password
 
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .serializers import MyTokenObtainPairSerializer,RegisterSerializer
-from rest_framework.permissions import AllowAny
+from .serializers import MyTokenObtainPairSerializer,RegisterSerializer,UserProfileSerializer
+from rest_framework.permissions import AllowAny,IsAuthenticated
 
 from rest_framework import generics,status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,permission_classes
 
 from .models import User
 from rest_framework.response import Response
-from exceptions import Exception422,Exception404
+from exceptions import Exception422,Exception404,Exception409
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 
@@ -26,7 +26,7 @@ def find_model(model,**kwargs):
     try:
         return User.objects.get(**kwargs)
     except model.DoesNotExist:
-        raise Exception404(f"{model.__name__}  is not exist in db!")
+        raise Exception404(f"{model.__name__} not found!")
 
 def generate_reset_token(length=32):
     # Generate a random token with the specified length
@@ -170,3 +170,83 @@ def reset_password(request):
         "status_code":200,
         "message":"Password successfully reset!"
     })
+
+@api_view(['GET','PUT'])
+@permission_classes([IsAuthenticated])
+def userProfile(request,pk):
+    if request.method=='GET':
+        user = find_model(User,pk=pk)
+        serializer = UserProfileSerializer(user)
+        return Response({
+            "message":"Authenticate User",
+            "user":serializer.data
+        })
+    
+    if request.method == 'PUT':
+        first_name = request.data['first_name']
+        last_name = request.data['last_name']
+        email = request.data['email']
+        password = request.data['password']
+        confirm_password = request.data['confirm_password']
+        # image = request.FILES['image']
+
+        user = find_model(User,pk=pk)
+        
+        image = user.image
+        oldImagePath = image.path
+        newImage=""
+        # print("Before Image Path",image)
+
+        if request.FILES.get('image'):
+            image = request.FILES['image']
+            newImage= image
+        
+
+        isPassword = False
+
+        print(oldImagePath==newImage)
+
+        if email=="":
+            required_field("Email")
+
+        if not validate_email(email):
+            raise Exception422(f"Email should be valid!")
+        
+        if User.objects.exclude(id=user.id).filter(email=email).exists():
+            raise Exception409("This email already exists!.")
+        
+        if password or confirm_password:
+            if len(password)<5:
+                raise Exception422("Password length must be 5 character long!")
+    
+            if len(password)>12:
+                raise Exception422("Password length should't exceed 12 character!")
+            
+            if len(confirm_password)<5:
+                raise Exception422("Confrirm password length must be 5 character long!")
+            
+            if len(confirm_password)>12:
+                raise Exception422("Confrirm password should't exceed 12 character!")
+            
+            if password!=confirm_password:
+                raise Exception422("Password and confirm password should be same!")
+            
+            isPassword = True
+
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+        user.image = image
+
+        if isPassword:
+            user.password = make_password(password)
+        print("After Image Path",image)
+        user.save()
+
+
+                        
+        serializer = UserProfileSerializer(user)
+        return Response({
+            "message":"User profile updated successfully",
+            "user":serializer.data
+        })

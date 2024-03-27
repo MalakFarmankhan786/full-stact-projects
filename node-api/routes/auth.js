@@ -58,6 +58,11 @@ router.post(
 
 router.get("/user-profile", isAuth, authController.getUserProfile);
 
-router.put("/edit-profile", isAuth, authController.editUserProfile);
+router.put(
+  "/edit-profile",
+  isAuth,
+  [...requiredField("email"), ...emailValidate("email")],
+  authController.editUserProfile
+);
 
 module.exports = router;

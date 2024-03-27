@@ -1,14 +1,46 @@
 // app.js
-
+const path = require("path")
 const express = require("express");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const multer = require("multer");
+const bodyParser = require("body-parser");
+
+
 const authRoutes = require("./routes/auth");
 
 const app = express();
 
-// Middleware
+// const DIR = path.join(__dirname, 'images');
+const filteStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "images");
+    },
+  filename: (req, file, cb) => {
+    cb(null, new Date().toISOString()+"-"+file.originalname);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+    return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+  }
+};
+
 app.use(bodyParser.json());
+app.use(
+  multer({ storage: filteStorage, fileFilter: fileFilter }).single("image")
+);
+
+// Middleware
+app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/default", express.static(path.join(__dirname, "default")));
 
 // CORS headers
 app.use((req, res, next) => {
@@ -40,7 +72,7 @@ mongoose
   .then(() => {
     console.log("Connected to MongoDB");
     // Start the Express server
-    const PORT = 8000;
+    const PORT = 8080;
     app.listen(PORT);
   })
   .catch((error) => {
